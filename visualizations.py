@@ -1,15 +1,13 @@
-# ============================================================
+
 # PHASE 5 — VISUALISATION
 # Polynomial Regression Simulation Study
-# ============================================================
+
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# ------------------------------------------------------------
 # 1. LOAD DATA
-# ------------------------------------------------------------
 
 df = pd.read_csv("simulation_results.csv")
 
@@ -21,10 +19,7 @@ print("\nDataset shape:", df.shape)
 print("\nColumns:")
 print(df.columns.tolist())
 
-
-# ------------------------------------------------------------
 # 2. BASIC SETTINGS
-# ------------------------------------------------------------
 
 # Degree 10 is retained for diagnostics but excluded from
 # the main visual story because of severe numerical instability.
@@ -33,10 +28,8 @@ MAIN_DEGREES = [1, 2, 5]
 
 plot_df = df[df["degree"].isin(MAIN_DEGREES)].copy()
 
-
-# ------------------------------------------------------------
 # 3. HELPER FUNCTIONS
-# ------------------------------------------------------------
+
 
 def confidence_interval(series):
     """
@@ -82,10 +75,9 @@ def grouped_summary(data, group_cols, metric="test_rmse"):
     return summary
 
 
-# ============================================================
 # FIGURE 1
 # EFFECT OF SAMPLE SIZE
-# ============================================================
+
 
 summary = grouped_summary(
     plot_df,
@@ -139,10 +131,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # FIGURE 2
 # TRAINING VS TEST ERROR
-# ============================================================
+
 
 train_summary = (
     plot_df
@@ -200,10 +191,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # FIGURE 3
 # GENERALIZATION GAP
-# ============================================================
+
 
 gap_summary = grouped_summary(
     plot_df,
@@ -256,10 +246,8 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # FIGURE 4
 # EFFECT OF NOISE
-# ============================================================
 
 noise_summary = grouped_summary(
     plot_df,
@@ -303,11 +291,9 @@ plt.savefig(
 
 plt.show()
 
-
-# ============================================================
 # FIGURE 5
 # MODEL COMPLEXITY
-# ============================================================
+
 
 complexity_summary = grouped_summary(
     plot_df,
@@ -352,10 +338,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # FIGURE 6
 # SAMPLE SIZE × MODEL COMPLEXITY HEATMAP
-# ============================================================
+
 
 heatmap_data = (
     plot_df
@@ -404,10 +389,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # FIGURE 7
 # UNCERTAINTY / VARIABILITY
-# ============================================================
+
 
 uncertainty = (
     plot_df
@@ -466,9 +450,7 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # DEGREE 10 DIAGNOSTIC
-# ============================================================
 
 degree10 = df[df["degree"] == 10]
 
@@ -497,9 +479,7 @@ print(
 )
 
 
-# ============================================================
 # FINAL SUMMARY TABLE
-# ============================================================
 
 final_summary = (
     plot_df
