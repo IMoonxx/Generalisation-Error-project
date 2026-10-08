@@ -1,7 +1,6 @@
-# ============================================================
+
 # PHASE 6 — REAL-WORLD VALIDATION
 # Auto MPG Dataset
-# ============================================================
 
 import pandas as pd
 import numpy as np
@@ -17,9 +16,7 @@ from sklearn.metrics import (
     r2_score
 )
 
-# ------------------------------------------------------------
 # 1. LOAD DATASET
-# ------------------------------------------------------------
 
 print("=" * 70)
 print("PHASE 6 — REAL-WORLD VALIDATION")
@@ -53,10 +50,7 @@ print("\nFirst 5 rows:")
 print(df.head())
 
 
-# ------------------------------------------------------------
 # 2. DATA INSPECTION
-# ------------------------------------------------------------
-
 print("\n" + "=" * 70)
 print("DATA INSPECTION")
 print("=" * 70)
@@ -71,9 +65,8 @@ print("\nDescriptive statistics:")
 print(df.describe())
 
 
-# ------------------------------------------------------------
+
 # 3. CLEANING
-# ------------------------------------------------------------
 
 print("\n" + "=" * 70)
 print("DATA CLEANING")
@@ -94,13 +87,10 @@ print("\nMissing values after cleaning:")
 print(df.isnull().sum())
 
 
-# ------------------------------------------------------------
 # 4. DEFINE PREDICTOR AND TARGET
-# ------------------------------------------------------------
 
 # Predictor:
 # Horsepower
-#
 # Target:
 # Miles per gallon (MPG)
 
@@ -116,10 +106,7 @@ print("Target: MPG")
 
 print("\nNumber of observations:", len(df))
 
-
-# ------------------------------------------------------------
 # 5. TRAIN / TEST SPLIT
-# ------------------------------------------------------------
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -136,9 +123,7 @@ print("\nTraining observations:", len(X_train))
 print("Testing observations:", len(X_test))
 
 
-# ------------------------------------------------------------
 # 6. MODEL EVALUATION FUNCTION
-# ------------------------------------------------------------
 
 def evaluate_model(model, X_train, X_test, y_train, y_test):
 
@@ -178,9 +163,8 @@ def evaluate_model(model, X_train, X_test, y_train, y_test):
     }
 
 
-# ------------------------------------------------------------
-# 7. FIT POLYNOMIAL MODELS
-# ------------------------------------------------------------
+
+# 7. FIT POLYNOMIAL MODEL
 
 degrees = [1, 2, 5]
 
@@ -253,9 +237,8 @@ print(
 )
 
 
-# ============================================================
 # 9. GRAPH — MODEL COMPLEXITY
-# ============================================================
+
 
 plt.figure(figsize=(9, 6))
 
@@ -288,9 +271,7 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # 10. GRAPH — TRAINING VS TEST ERROR
-# ============================================================
 
 x = np.arange(len(degrees))
 width = 0.35
@@ -340,9 +321,7 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # 11. GRAPH — GENERALIZATION GAP
-# ============================================================
 
 plt.figure(figsize=(9, 6))
 
@@ -380,9 +359,8 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # 12. SAMPLE-SIZE EXPERIMENT
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("REAL-DATA SAMPLE-SIZE EXPERIMENT")
@@ -473,9 +451,8 @@ print(
 )
 
 
-# ============================================================
+
 # 13. GRAPH — SAMPLE SIZE VS TEST ERROR
-# ============================================================
 
 plt.figure(figsize=(10, 6))
 
@@ -515,9 +492,7 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # 14. REAL DATA SUMMARY
-# ============================================================
 
 print("\n" + "=" * 70)
 print("PHASE 6 SUMMARY")
