@@ -1,26 +1,23 @@
-# ============================================================
+
 # PHASE 4 — MAIN ANALYSIS
-# ============================================================
-#
+
 # This file analyses the results generated during Phase 3.
 # It does NOT rerun the simulation.
-#
+
 # Main analysis models:
 #   Degree 1, Degree 2, Degree 5
-#
+
 # Degree 10 is excluded from the PRIMARY analysis because
 # exploratory analysis showed extreme numerical instability
 # at small sample sizes.
-#
-# ============================================================
+
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# ------------------------------------------------------------
 # 1. LOAD RESULTS
-# ------------------------------------------------------------
+
 
 print("=" * 70)
 print("PHASE 4 — MAIN ANALYSIS")
@@ -38,9 +35,9 @@ print("\nColumns:")
 print(df.columns.tolist())
 
 
-# ------------------------------------------------------------
+
 # 2. BASIC DATA CHECK
-# ------------------------------------------------------------
+
 
 print("\n" + "=" * 70)
 print("BASIC DATA CHECK")
@@ -62,9 +59,8 @@ print("\nNumber of repetitions:")
 print(df["repetition"].nunique())
 
 
-# ------------------------------------------------------------
 # 3. REMOVE DEGREE 10 FROM PRIMARY ANALYSIS
-# ------------------------------------------------------------
+
 
 main_degrees = [1, 2, 5]
 
@@ -86,9 +82,9 @@ print(
 )
 
 
-# ------------------------------------------------------------
+
 # 4. BOOTSTRAP CONFIDENCE INTERVAL
-# ------------------------------------------------------------
+
 
 def bootstrap_median_ci(values, n_boot=2000, confidence=0.95, seed=42):
     """
@@ -131,9 +127,7 @@ def bootstrap_median_ci(values, n_boot=2000, confidence=0.95, seed=42):
     return med, lower, upper
 
 
-# ------------------------------------------------------------
 # 5. FUNCTION TO CREATE SUMMARY TABLES
-# ------------------------------------------------------------
 
 def summarize_by(group_columns, metric="test_rmse"):
 
@@ -164,9 +158,8 @@ def summarize_by(group_columns, metric="test_rmse"):
     return pd.DataFrame(rows)
 
 
-# ============================================================
 # ANALYSIS 1 — EFFECT OF SAMPLE SIZE
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("1. EFFECT OF SAMPLE SIZE")
@@ -188,9 +181,8 @@ print("\nMedian Test RMSE by sample size and model degree:")
 print(sample_summary.round(3))
 
 
-# ------------------------------------------------------------
 # Plot
-# ------------------------------------------------------------
+
 
 plt.figure(figsize=(10, 6))
 
@@ -233,9 +225,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
+
 # ANALYSIS 2 — EFFECT OF MODEL COMPLEXITY
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("2. EFFECT OF MODEL COMPLEXITY")
@@ -259,9 +251,8 @@ print("\nMedian Test RMSE by model complexity:")
 print(complexity_summary.round(3))
 
 
-# ------------------------------------------------------------
+
 # Plot
-# ------------------------------------------------------------
 
 plt.figure(figsize=(9, 6))
 
@@ -301,9 +292,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
+
 # ANALYSIS 3 — EFFECT OF NOISE
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("3. EFFECT OF NOISE")
@@ -326,9 +317,8 @@ print("\nMedian Test RMSE by noise level:")
 print(noise_summary.round(3))
 
 
-# ------------------------------------------------------------
 # Plot
-# ------------------------------------------------------------
+
 
 plt.figure(figsize=(9, 6))
 
@@ -366,9 +356,8 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
 # ANALYSIS 4 — GENERALIZATION GAP
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("4. GENERALIZATION GAP")
@@ -387,9 +376,9 @@ print("\nMedian generalization gap:")
 print(gap_summary.round(3))
 
 
-# ------------------------------------------------------------
+
 # Plot
-# ------------------------------------------------------------
+
 
 plt.figure(figsize=(10, 6))
 
@@ -431,9 +420,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
+
 # ANALYSIS 5 — DIMINISHING RETURNS FROM MORE DATA
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("5. DIMINISHING RETURNS FROM ADDITIONAL DATA")
@@ -484,9 +473,9 @@ print(
 )
 
 
-# ------------------------------------------------------------
+
 # Plot percentage improvement
-# ------------------------------------------------------------
+
 
 improvement_df = diminishing_summary.dropna(
     subset=["improvement_percent"]
@@ -525,9 +514,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
+
 # ANALYSIS 6 — SAMPLE SIZE × MODEL COMPLEXITY
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("6. SAMPLE SIZE × MODEL COMPLEXITY")
@@ -546,9 +535,9 @@ print("\nInteraction summary:")
 print(interaction_complexity_summary.round(3))
 
 
-# ------------------------------------------------------------
+
 # Plot
-# ------------------------------------------------------------
+
 
 fig, axes = plt.subplots(
     1,
@@ -594,9 +583,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
+
 # ANALYSIS 7 — SAMPLE SIZE × NOISE
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("7. SAMPLE SIZE × NOISE")
@@ -615,9 +604,9 @@ print("\nInteraction summary:")
 print(interaction_noise_summary.round(3))
 
 
-# ------------------------------------------------------------
+
 # Plot
-# ------------------------------------------------------------
+
 
 fig, axes = plt.subplots(
     1,
@@ -667,9 +656,9 @@ plt.savefig(
 plt.show()
 
 
-# ============================================================
+
 # ANALYSIS 8 — VARIABILITY ACROSS REPETITIONS
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("8. VARIABILITY ACROSS REPEATED SIMULATIONS")
@@ -685,9 +674,9 @@ print("\nVariability summary:")
 print(variability.round(3).head(30))
 
 
-# ============================================================
+
 # ANALYSIS 9 — IDENTIFY UNEXPECTED RESULTS
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("9. UNEXPECTED RESULTS / EXTREME OBSERVATIONS")
@@ -726,9 +715,9 @@ print(
 )
 
 
-# ============================================================
+
 # ANALYSIS 10 — HYPOTHESIS CHECK
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("10. HYPOTHESIS CHECK")
@@ -755,9 +744,8 @@ H5: Larger sample sizes should generally reduce variability
 )
 
 
-# ------------------------------------------------------------
 # H1 — SAMPLE SIZE
-# ------------------------------------------------------------
+
 
 degree2_sample = diminishing_summary.sort_values(
     "sample_size"
@@ -783,9 +771,8 @@ else:
     print("Observed pattern: Test error did not decrease.")
 
 
-# ------------------------------------------------------------
+
 # H2 — MODEL COMPLEXITY
-# ------------------------------------------------------------
 
 print("\nH2 — Model Complexity:")
 
@@ -797,9 +784,7 @@ for _, row in complexity_summary.iterrows():
     )
 
 
-# ------------------------------------------------------------
 # H3 — NOISE
-# ------------------------------------------------------------
 
 print("\nH3 — Noise:")
 
@@ -811,9 +796,8 @@ for _, row in noise_summary.sort_values("noise").iterrows():
     )
 
 
-# ------------------------------------------------------------
 # H4 — DIMINISHING RETURNS
-# ------------------------------------------------------------
+
 
 print("\nH4 — Diminishing Returns:")
 
@@ -827,9 +811,8 @@ print(
 )
 
 
-# ------------------------------------------------------------
 # H5 — VARIABILITY
-# ------------------------------------------------------------
+
 
 print("\nH5 — Variability:")
 
@@ -849,9 +832,8 @@ for degree in main_degrees:
     )
 
 
-# ============================================================
 # DISTRIBUTION-SHIFT NOTE
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("DISTRIBUTION-SHIFT EXPERIMENT")
@@ -879,9 +861,8 @@ No distribution-shift result is being invented here.
 )
 
 
-# ============================================================
 # SAVE ANALYSIS TABLES
-# ============================================================
+
 
 sample_summary.to_csv(
     "phase4_sample_size_summary.csv",
@@ -924,9 +905,9 @@ variability.to_csv(
 )
 
 
-# ============================================================
+
 # FINAL SUMMARY
-# ============================================================
+
 
 print("\n" + "=" * 70)
 print("PHASE 4 ANALYSIS COMPLETE")
